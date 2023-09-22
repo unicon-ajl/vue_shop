@@ -1,6 +1,14 @@
 
 
 ##  电商后台管理系统(前端项目）
+
+### 报错：
+in ./src/main-dev.js
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+Error [ERR_PACKAGE_PATH_NOT_EXPORTED]: No "exports" main defined in D:\code\VScodeProjects\电商后台管理系统\vue-shop-admin-master\node_modules\@babel\helper-compilation-targets\package.json
+
+打开文件 D:\code\VScodeProjects\电商后台管理系统\vue-shop-admin-master\node_modules\@babel\helper-compilation-targets\package.json
+将 "exports": false 改为 "exports": { ".": "./lib/index.js" } 重启即可
 ### 后端API接口源码  (vueShop-api-server) [接口API](./api接口文档.md)
 
 ### 功能
