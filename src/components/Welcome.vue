@@ -2,12 +2,12 @@
   <div>
     <!-- 2.为Echarts准备一个Dom -->
     <el-row>
-      <el-col :span="16">
+      <el-col>
         <div id="main" style="width: 1000px;height:600px;"></div>
       </el-col>
       <!-- <el-col :span="6">
         <p>欢迎一起学习讨论</p>
-        <p>QQ: 1191448939</p>
+        <p>QQ: 2290501132</p>
       </el-col> -->
     </el-row>
   </div>
@@ -19,7 +19,7 @@ import echarts from 'echarts'
 
 export default {
   // 此时,页面上的元素,已经被渲染完毕了
-  async mounted () {
+  async mounted() {
     // 3.基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('main'))
     // 4.准备数据项和配置项
@@ -64,7 +64,7 @@ export default {
       ]
     }
 
-    myChart.on('updateAxisPointer', function (event) {
+    myChart.on('updateAxisPointer', function(event) {
       var xAxisInfo = event.axesInfo[0]
       if (xAxisInfo) {
         var dimension = xAxisInfo.value + 1
@@ -91,8 +91,8 @@ export default {
 </script>
 
 <style>
-div{
-   margin: 0;
-   padding: 0;
+div {
+  margin: 0;
+  padding: 0;
 }
 </style>

@@ -15,7 +15,7 @@ router.get("/",
 	function(req,res,next) {
 		// 参数验证
 		if(!req.query.pagenum || req.query.pagenum <= 0) return res.sendResult(null,400,"pagenum 参数错误");
-		if(!req.query.pagesize || req.query.pagesize <= 0) return res.sendResult(null,400,"pagesize 参数错误"); 
+		if(!req.query.pagesize || req.query.pagesize <= 0) return res.sendResult(null,400,"pagesize 参数错误");
 		next();
 	},
 	// 处理业务逻辑
@@ -31,7 +31,6 @@ router.get("/",
 				res.sendResult(result,200,"获取管理员列表成功");
 			}
 		)(req,res,next);
-		
 	}
 );
 
@@ -142,7 +141,7 @@ router.put("/:id/role",
 
 		if(req.params.id == 500) return res.sendResult(null,400,"不允许修改admin账户");
 
-		if(!req.body.rid) res.sendResult(null,400,"权限ID不能为空"); 
+		if(!req.body.rid) res.sendResult(null,400,"权限ID不能为空");
 		next();
 	},
 	// 处理业务逻辑

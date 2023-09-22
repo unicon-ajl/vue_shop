@@ -13,7 +13,7 @@ function initialize(app,callback) {
 
 	// 加载配置文件
 	var config = require('config').get("db_config");
-	
+
 	// 从配置中获取数据库配置
 	var opts = {
 		protocol : config.get("protocol"),
@@ -25,7 +25,7 @@ function initialize(app,callback) {
 		query : {pool: true,debug: true}
 	};
 
-	
+
 	console.log("数据库连接参数 %s",JSON.stringify(opts));
 
 	// 初始化ORM模型
@@ -37,7 +37,7 @@ function initialize(app,callback) {
 
 			// 获取映射文件路径
 			var modelsPath = path.join(process.cwd(),"/models");
-			
+
 			// 读取所有模型文件
 			fs.readdir(modelsPath,function(err, files) {
 				// 存放所有的加载模型函数
@@ -48,7 +48,7 @@ function initialize(app,callback) {
 					// console.log("加载模型 %s",modelPath);
 					loadModelAsynFns[i] = db.loadAsync(modelPath);
 				}
-				
+
 				Promise.all(loadModelAsynFns)
 				.then(function(){
 					// console.log("ORM 模型加载完成");
@@ -68,7 +68,7 @@ function initialize(app,callback) {
 				});
 			});
 		}
-	}));	
+	}));
 }
 
 module.exports.initialize = initialize;

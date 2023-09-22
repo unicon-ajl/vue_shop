@@ -36,7 +36,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       loginForm: {
         username: 'admin',
@@ -57,12 +57,12 @@ export default {
   },
   methods: {
     // 表单重置按钮
-    resetLoginForm () {
+    resetLoginForm() {
       // console.log(this)
       // resetFields：element-ui提供的表单方法
       this.$refs.loginFormRef.resetFields()
     },
-    login () {
+    login() {
       // 表单预验证
       // valid：bool类型
       this.$refs.loginFormRef.validate(async valid => {
@@ -79,7 +79,8 @@ export default {
         //   1.2 token 只应在当前网站打开期间生效，所以将token保存在sessionStorage中
         window.sessionStorage.setItem('token', res.data.token)
         // 2、通过编程式导航跳转到后台主页, 路由地址为：/home
-        this.$router.push('/home')
+        delete res.data.token
+        this.$router.push({ path: '/home', query: res.data })
       })
     }
   }

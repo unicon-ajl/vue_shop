@@ -14,15 +14,20 @@ router.get("/",
 	function(req,res,next) {
 		// 参数验证
 		if(!req.query.pagenum || req.query.pagenum <= 0) return res.sendResult(null,400,"pagenum 参数错误");
-		if(!req.query.pagesize || req.query.pagesize <= 0) return res.sendResult(null,400,"pagesize 参数错误"); 
+		if(!req.query.pagesize || req.query.pagesize <= 0) return res.sendResult(null,400,"pagesize 参数错误");
 		next();
 	},
 	// 业务逻辑
 	function(req,res,next) {
 		var conditions = {
+			"query" : req.query.query,
 			"pagenum" : req.query.pagenum,
 			"pagesize" : req.query.pagesize
 		};
+
+		if(req.query.query) {
+			conditions["query"] = req.query.query;
+    }
 
 		if(req.query.user_id) {
 			conditions["user_id"] = req.query.user_id;
@@ -69,7 +74,7 @@ router.post("/",
 			if(err) return res.sendResult(null,400,err);
 			return res.sendResult(newOrder,201,"创建订单成功");
 		})(req,res,next);
-		
+
 	}
 );
 

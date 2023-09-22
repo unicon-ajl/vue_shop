@@ -10,8 +10,13 @@
     <el-card>
       <el-row>
         <el-col :span="6">
-          <el-input placeholder="请输入内容">
-            <el-button slot="append" icon="el-icon-search"></el-button>
+          <el-input
+            placeholder="请输入内容"
+            v-model="queryInfo.query"
+            clearable
+            @clear="getOrderList"
+          >
+            <el-button slot="append" icon="el-icon-search" @click="getOrderList"></el-button>
           </el-input>
         </el-col>
       </el-row>
@@ -28,10 +33,19 @@
           </template>
         </el-table-column>
         <el-table-column label="是否发货" prop="is_send"></el-table-column>
-        <el-table-column label="下单时间" prop="create_time"></el-table-column>
+        <el-table-column label="下单时间" prop="create_time">
+          <template slot-scope="scope">
+            {{ scope.row.create_time | dataFormat }}
+          </template>
+        </el-table-column>
         <el-table-column label="操作">
-          <template slot>
-            <el-button type="primary" size="mini" icon="el-icon-edit" @click="showEditDialog"></el-button>
+          <template slot-scope="scope">
+            <el-button
+              type="primary"
+              size="mini"
+              icon="el-icon-edit"
+              @click="showEditDialog(scope.row)"
+            ></el-button>
             <el-button
               type="success"
               size="mini"
@@ -79,18 +93,20 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="addressDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click="editAddress">确 定</el-button>
       </span>
     </el-dialog>
     <!-- 展示物流进度对话框 -->
     <el-dialog title="查看物流进度" :visible.sync="progressDialogVisible" width="50%">
-    <!-- 时间线 -->
+      <!-- 时间线 -->
       <el-timeline>
         <el-timeline-item
           v-for="(activity, index) in progressInfo"
           :key="index"
           :timestamp="activity.time"
-        >{{activity.context}}</el-timeline-item>
+        >
+          {{ activity.context }}
+        </el-timeline-item>
       </el-timeline>
     </el-dialog>
   </div>
@@ -101,7 +117,7 @@ import cityData from './citydata.js'
 import progressTest from './progressInfo'
 
 export default {
-  data () {
+  data() {
     return {
       // 订单列表查询参数
       queryInfo: {
@@ -109,6 +125,7 @@ export default {
         pagenum: 1,
         pagesize: 10
       },
+      user_id: '',
       total: 0,
       // 订单列表
       orderList: [],
@@ -119,12 +136,8 @@ export default {
         address2: ''
       },
       addressFormRules: {
-        address1: [
-          { required: true, message: '请选择省市区县', trigger: 'blur' }
-        ],
-        address2: [
-          { required: true, message: '请输入详细地址', trigger: 'blur' }
-        ]
+        address1: [{ required: true, message: '请选择省市区县', trigger: 'blur' }],
+        address2: [{ required: true, message: '请输入详细地址', trigger: 'blur' }]
       },
       cityData,
       // 物流进度对话框
@@ -135,11 +148,11 @@ export default {
       progressTestInfo: progressTest
     }
   },
-  created () {
+  created() {
     this.getOrderList()
   },
   methods: {
-    async getOrderList () {
+    async getOrderList() {
       const { data: res } = await this.$http.get('orders', {
         params: this.queryInfo
       })
@@ -150,21 +163,23 @@ export default {
       this.orderList = res.data.goods
     },
     // 分页
-    handleSizeChange (newSize) {
+    handleSizeChange(newSize) {
       this.queryInfo.pagesize = newSize
       this.getOrderList()
     },
-    handleCurrentChange (newSize) {
+    handleCurrentChange(newSize) {
       this.queryInfo.pagenum = newSize
       this.getOrderList()
     },
-    showEditDialog () {
+    showEditDialog(row) {
+      // console.log(row)
+      this.user_id = row.user_id
       this.addressDialogVisible = true
     },
-    addressDialogClosed () {
+    addressDialogClosed() {
       this.$refs.addressFormRef.resetFields()
     },
-    async showProgressDialog () {
+    async showProgressDialog() {
       // 供测试的物流单号：1106975712662
       // const { data: res } = await this.$http.get('/kuaidi/1106975712662')
       // if (res.meta.status !== 200) {
@@ -173,6 +188,24 @@ export default {
       // this.progressInfo = res.data
       this.progressInfo = this.progressTestInfo[0].data
       this.progressDialogVisible = true
+    },
+    // 修改地址
+    editAddress() {
+      this.$refs.addressFormRef.validate(async valid => {
+        if (!valid) {
+          return
+        }
+        const { data: res } = await this.$http.put(`orders/${this.user_id}`, {
+          consignee_addr: this.addressForm.address1.join(',') + ',' + this.addressForm.address2,
+          order_id: this.order_id
+        })
+        if (res.meta.status !== 200) {
+          return this.$message.error('修改订单收获地址失败')
+        }
+        this.addressDialogVisible = false
+        this.getOrderList()
+        this.$message.success('修改收货地址成功!')
+      })
     }
   }
 }
