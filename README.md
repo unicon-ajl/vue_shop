@@ -1,28 +1,16 @@
 
-### 大家有问题尽量在这里提： https://gitee.com/wBekvam/vue-shop-admin/issues
 
-
-
-
-##  电商后台管理系统(前端项目）  [预览](http://huangzun.top:8888/)
-### 后端API接口源码  [下载](https://gitee.com/wBekvam/vueShop-api-server.git).  [接口API](./api接口文档.md)
-
-> 有问题的道友，欢迎加群讨论，将为您悉心解答：827923683
+##  电商后台管理系统(前端项目）
+### 后端API接口源码  (vueShop-api-server) [接口API](./api接口文档.md)
 
 ### 功能
 
 > 用于管理用户账号，商品分类，商品信息，订单，数据统计等业务功能
 
 
-
-![](https://gitee.com/wBekvam/vue-shop-admin/raw/master/image/mall_desc01.png)
-
-
 ### 开发模式
 
 > 电商后台管理系统整体采用前后端分离的开发模式,其中前端项目是基于Vue技术栈的SPA项目
-
-![](https://gitee.com/wBekvam/vue-shop-admin/raw/master/image/mall_desc02.png)
 
 ### 技术选型
 
@@ -48,7 +36,7 @@
 
   ##### [接口API](./api接口文档.md).
 
-  后端源码  [下载](https://gitee.com/wBekvam/vueShop-api-server.git).
+  后端源码  (vueShop-api-server).
 
 ### 项目初始化
 
@@ -63,7 +51,6 @@
 
 ##### 相关依赖-按需导入
 
-![](https://gitee.com/wBekvam/vue-shop-admin/raw/master/image/mall_desc03.png)
 
 #### 后端项目的环境安装配置
 
@@ -71,7 +58,7 @@
 2. 安装Node.js环境
 3. 配置项目相关信息
 4. 启动项目
-   1. 使用phpstudy导入数据库并运行
+   1. 使用navicat导入数据库并运行
    2. npm init 后端项目
    3. node ./app.js
 5. 使用Postman测试后台项目接口是否正常
@@ -91,8 +78,6 @@
 3. 通过sesion在服务器端记录状态
 4. 通过token维持状态(不允许跨域使用)
 
-![](https://gitee.com/wBekvam/vue-shop-admin/raw/master/image/mall_desc04.png)
-
 #### 登录业务流程
 
 ##### 登录页面的布局
@@ -104,22 +89,6 @@
 - el-input
 - el-button
 - 字体图标
-
-##### 创建git分支
-
-```
-// 创建并切换登录分支
-git checkout -b login
-
-// login分支合并到主分支
-// 1.切换到master分支
-git checkout master
-// 2.合并分支到master
-git merge login
-
-// 将本地login子分支推送到github
-git push -u origin login
-```
 
 ##### 路由导航守卫控制访问权限
 
@@ -158,9 +127,6 @@ axios.interceptors.request.use(config => {
 #### 权限管理业务分析
 
 > 通过权限管理模块控制不同的用户可以进行哪些操作,具体可以通过角色的方式进行控制,即每个用户分配一个特定的角色,角色包括不同的功能权限
-
-![](https://gitee.com/wBekvam/vue-shop-admin/raw/master/image/mall_desc05.png)
-
 
 
 ### 分类管理
@@ -433,7 +399,6 @@ app.use(compression())
 6. pm2 delete 自定义名称 //删除项目
 ```
 
-![](https://gitee.com/wBekvam/vue-shop-admin/raw/master/image/mall_desc06.png)
 
 
 
@@ -452,40 +417,40 @@ app.use(compression())
 
 ### Project preview
 
-![welcome](https://gitee.com/wBekvam/vue-shop-admin/raw/master/image/welcome.png)
+![welcome]image/welcome.png)
 
 
-![welcome](https://gitee.com/wBekvam/vue-shop-admin/raw/master/image/login.png)
+![welcome]image/login.png)
 
 
-![user](https://gitee.com/wBekvam/vue-shop-admin/raw/master/image/user.png)
-
-
-
-![user1](https://gitee.com/wBekvam/vue-shop-admin/raw/master/image/user1.png)
+![user]image/user.png)
 
 
 
-![role](https://gitee.com/wBekvam/vue-shop-admin/raw/master/image/role.png)
+![user1]image/user1.png)
 
 
 
-![auth](https://gitee.com/wBekvam/vue-shop-admin/raw/master/image/auth.png)
+![role]image/role.png)
 
 
-![goods](https://gitee.com/wBekvam/vue-shop-admin/raw/master/image/goods.png)
+
+![auth]image/auth.png)
 
 
-![params](https://gitee.com/wBekvam/vue-shop-admin/raw/master/image/params.png)
+![goods]image/goods.png)
 
 
-![addGoods](https://gitee.com/wBekvam/vue-shop-admin/raw/master/image/addGoods.png)
+![params]image/params.png)
 
 
-![addGoods1](https://gitee.com/wBekvam/vue-shop-admin/raw/master/image/addGoods1.png)
+![addGoods]image/addGoods.png)
 
 
-![data](https://gitee.com/wBekvam/vue-shop-admin/raw/master/image/data.png)
+![addGoods1]image/addGoods1.png)
+
+
+![data]image/data.png)
 
 ## 错误异常
 #### 1. 在使用Node.js14+版本可能出现错误
